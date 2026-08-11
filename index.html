@@ -361,22 +361,21 @@ EN EL LOCAL
   @keyframes tioUp{to{opacity:1;transform:none}}
 
   /* ================= ENCABEZADO ================= */
-  #tio-pick .top{display:flex;justify-content:center;padding:60px 0 6px}
-  #tio-pick .top .mark{position:relative;display:inline-flex;align-items:center;justify-content:center;
-    padding:20px 40px;border-radius:999px;background:rgba(255,255,255,.62);backdrop-filter:blur(12px);
-    border:1px solid rgba(111,124,107,.24);
-    box-shadow:0 30px 60px -34px rgba(62,70,60,.85),inset 0 1px 0 rgba(255,255,255,.75);
-    animation:tioMark 1.1s .1s cubic-bezier(.22,.9,.28,1) both}
-  html.dark #tio-pick .top .mark{background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.1);
-    box-shadow:0 30px 60px -34px rgba(0,0,0,.9),inset 0 1px 0 rgba(255,255,255,.07)}
-  #tio-pick .top .mark::before{content:'';position:absolute;inset:-34px;border-radius:999px;z-index:-1;
-    background:radial-gradient(closest-side,rgba(111,124,107,.26),transparent 72%);
-    animation:tioHalo 7s ease-in-out infinite}
-  html.dark #tio-pick .top .mark::before{background:radial-gradient(closest-side,rgba(143,156,138,.3),transparent 72%)}
-  #tio-pick .top img{display:block;height:clamp(56px,9.5vw,82px)}
+  #tio-pick .top{--lh:clamp(58px,10vw,88px);display:flex;flex-direction:column;align-items:center;padding:58px 0 0}
+  /* el SVG del logo trae aire muerto a la derecha: se recorta para que quede centrado de verdad */
+  #tio-pick .top .mark{position:relative;display:block;line-height:0;overflow:hidden;
+    width:calc(var(--lh)*2.45);height:var(--lh);
+    animation:tioMark 1s .1s cubic-bezier(.22,.9,.28,1) both}
+  #tio-pick .top .mark::before{content:'';position:absolute;inset:-52px -76px;z-index:-1;pointer-events:none;
+    background:radial-gradient(closest-side,rgba(111,124,107,.17),transparent 76%)}
+  html.dark #tio-pick .top .mark::before{background:radial-gradient(closest-side,rgba(143,156,138,.2),transparent 76%)}
+  #tio-pick .top img{display:block;height:var(--lh);width:auto;max-width:none}
   html.dark #tio-pick .top img{filter:brightness(0) invert(.92)}
-  @keyframes tioMark{from{opacity:0;transform:translateY(14px) scale(.9)}to{opacity:1;transform:none}}
-  @keyframes tioHalo{0%,100%{opacity:.75;transform:scale(1)}50%{opacity:1;transform:scale(1.09)}}
+  #tio-pick .rule{width:clamp(54px,9vw,74px);height:1px;margin-top:24px;
+    background:linear-gradient(90deg,transparent,rgba(111,124,107,.5),transparent);
+    animation:tioRule .8s .45s cubic-bezier(.22,.9,.28,1) both}
+  @keyframes tioMark{from{opacity:0;transform:translateY(12px) scale(.94)}to{opacity:1;transform:none}}
+  @keyframes tioRule{from{opacity:0;transform:scaleX(.2)}to{opacity:1;transform:none}}
   #tio-pick h1{font-family:'Fraunces',Georgia,serif;font-weight:500;text-align:center;letter-spacing:-.6px;
     font-size:clamp(28px,6.2vw,46px);line-height:1.1;margin:34px 0 0}
   #tio-pick h1 em{font-style:italic;font-weight:600;position:relative;white-space:nowrap;color:var(--tg)}
@@ -503,7 +502,9 @@ EN EL LOCAL
     animation:tioOut .6s .4s cubic-bezier(.4,0,.2,1) forwards}
   html.dark #tio-splash{background:#131714}
   #tio-splash div{text-align:center;animation:tioIn .5s cubic-bezier(.22,.9,.28,1)}
-  #tio-splash img{height:clamp(56px,10vw,76px)}
+  #tio-splash .mark{--lh:clamp(52px,9vw,74px);display:block;overflow:hidden;line-height:0;
+    width:calc(var(--lh)*2.45);height:var(--lh);margin:0 auto}
+  #tio-splash img{display:block;height:var(--lh);width:auto;max-width:none}
   html.dark #tio-splash img{filter:brightness(0) invert(.92)}
   #tio-splash p{margin-top:16px;font-size:11px;font-weight:800;letter-spacing:2.2px;color:var(--tg)}
   #tio-splash i{display:block;width:44px;height:2px;margin:14px auto 0;border-radius:2px;
@@ -548,10 +549,10 @@ EN EL LOCAL
   @media(max-width:900px){#tio-pick .grid{grid-template-columns:repeat(auto-fill,minmax(164px,1fr))}}
   @media(max-width:760px){
     #tio-pick .in{padding:0 15px calc(56px + env(safe-area-inset-bottom))}
-    #tio-pick .top{padding:34px 0 2px}
-    #tio-pick .top .mark{padding:15px 26px}
-    #tio-pick .top .mark::before{inset:-22px}
-    #tio-pick h1{margin-top:26px}
+    #tio-pick .top{padding:34px 0 0}
+    #tio-pick .top .mark::before{inset:-30px -44px}
+    #tio-pick .rule{margin-top:18px}
+    #tio-pick h1{margin-top:22px}
     #tio-pick .lbl{margin:34px 0 14px;letter-spacing:1.6px}
     #tio-pick .lbl::before,#tio-pick .lbl::after{width:min(46px,9vw)}
     #tio-pick .grid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:11px}
@@ -569,8 +570,8 @@ EN EL LOCAL
   }
   @media(max-width:370px){#tio-pick .grid{grid-template-columns:1fr 1fr}}
   @media(prefers-reduced-motion:reduce){
-    #tio-pick .orb,#tio-pick .cta::after,#tio-splash i,#tio-pick .top .mark::before{animation:none}
-    #tio-pick .top .mark{animation:none;opacity:1;transform:none}
+    #tio-pick .orb,#tio-pick .cta::after,#tio-splash i{animation:none}
+    #tio-pick .top .mark,#tio-pick .rule{animation:none!important;opacity:1!important;transform:none!important}
     .tioUp,#tio-swap,#tio-wa,#tio-hint,#tio-splash div{animation:none!important;opacity:1!important;transform:none!important}
     #tio-swap{transform:none!important}
     #tio-pick h1 em::after{animation:none;transform:none}
@@ -596,7 +597,7 @@ EN EL LOCAL
     d.innerHTML='<div class="bar">DEMO INTERACTIVA <span>· es una muestra, no se registran turnos reales</span></div>'
       +'<div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div><div class="grain"></div>'
       +'<div class="in">'
-      +'<div class="top tioUp"><span class="mark"><img src="'+LOGO+'" alt="Turnio"></span></div>'
+      +'<div class="top tioUp"><span class="mark"><img src="'+LOGO+'" alt="Turnio"></span><span class="rule"></span></div>'
       +'<h1 class="tioUp" style="animation-delay:80ms">Tu <em>web personalizada</em><br>de turnos</h1>'
       +'<p class="sub tioUp" style="animation-delay:150ms">Elegí tu rubro y la demo se arma sola: servicios, duraciones, precios y textos de tu actividad. Después probala como si fueras tu cliente, y también desde el panel del negocio.</p>'
       +'<div class="chips tioUp" style="animation-delay:210ms"><b>10 rubros</b><b>Reserva en 4 pasos</b><b>Panel de administración</b><b>Modo claro y oscuro</b></div>'
@@ -627,7 +628,7 @@ EN EL LOCAL
     var k=null; try{k=sessionStorage.getItem('turnio-splash');sessionStorage.removeItem('turnio-splash')}catch(e){}
     if(!k||!R[k]) return;
     var s=document.createElement('div');s.id='tio-splash';
-    s.innerHTML='<div><img src="'+LOGO+'" alt="Turnio"><p>DEMO DE '+R[k].label.toUpperCase()+'</p><i></i>'
+    s.innerHTML='<div><span class="mark"><img src="'+LOGO+'" alt="Turnio"></span><p>DEMO DE '+R[k].label.toUpperCase()+'</p><i></i>'
       +'<small>© '+YEAR+' Turnio · Metricslab Agency</small></div>';
     document.body.appendChild(s);
     setTimeout(function(){s.remove()},1150);
